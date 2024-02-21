@@ -79,9 +79,12 @@ def save_model(model, path):
 
 def load_model(path):
     """ Loads pickle file from `path` and returns it."""
-    with open(path, 'rb') as f:
-        return pickle.load(f)
-
+    try:
+        with open(path, 'rb') as f:
+            return pickle.load(f)
+    except Exception as e:
+        print(f"Error loading model from {path}: {e}")
+        return None
 
 def performance_on_categorical_slice(
     data, column_name, slice_value, categorical_features, label, encoder, lb, model
